@@ -1,5 +1,6 @@
 package fr.humanbooster.harrypotter.service;
 
+import fr.humanbooster.harrypotter.exception.CustomEntityNotFoundException;
 import fr.humanbooster.harrypotter.repository.TypeClassRepository;
 import fr.humanbooster.harrypotter.entity.TypeOfClass;
 import fr.humanbooster.harrypotter.dto.TypeClassDto;
@@ -38,7 +39,7 @@ public class TypeClassService implements ServiceListInterface<TypeOfClass, Integ
     
     @Override
     public TypeOfClass findById(Integer id) {
-    return typeclassRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+    return typeclassRepository.findById(id).orElseThrow(CustomEntityNotFoundException::new);
     }
     
     @Override

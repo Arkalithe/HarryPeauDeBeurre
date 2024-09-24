@@ -1,5 +1,6 @@
 package fr.humanbooster.harrypotter.service;
 
+import fr.humanbooster.harrypotter.exception.CustomEntityNotFoundException;
 import fr.humanbooster.harrypotter.repository.StudentRepository;
 import fr.humanbooster.harrypotter.entity.Student;
 import fr.humanbooster.harrypotter.dto.StudentDto;
@@ -38,7 +39,7 @@ public class StudentService implements ServiceListInterface<Student, Integer, St
     
     @Override
     public Student findById(Integer id) {
-    return studentRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+    return studentRepository.findById(id).orElseThrow(CustomEntityNotFoundException::new);
     }
     
     @Override

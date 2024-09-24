@@ -1,5 +1,6 @@
 package fr.humanbooster.harrypotter.service;
 
+import fr.humanbooster.harrypotter.exception.CustomEntityNotFoundException;
 import fr.humanbooster.harrypotter.repository.HousePointRepository;
 import fr.humanbooster.harrypotter.entity.HousePoint;
 import fr.humanbooster.harrypotter.dto.HousePointDto;
@@ -39,7 +40,7 @@ public class HousePointService implements ServiceListInterface<HousePoint, Integ
 
     @Override
     public HousePoint findById(Integer id) {
-    return housepointRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+    return housepointRepository.findById(id).orElseThrow(CustomEntityNotFoundException::new);
     }
     
     @Override

@@ -6,6 +6,8 @@ import fr.humanbooster.harrypotter.entity.OffenseList;
 import fr.humanbooster.harrypotter.entity.TypeOfClass;
 import jakarta.persistence.Column;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import fr.humanbooster.harrypotter.jsonviews.StudentJsonview;
 
@@ -17,11 +19,11 @@ import java.util.List;
 @NoArgsConstructor
 @JsonView(StudentJsonview.showStudentSimple.class)
 public class StudentDto {
-
+    @NotNull
     private Integer yearOfBirth;
 
     private House house;
-
+    @NotBlank
     private String name;
 
     private boolean isAlive;

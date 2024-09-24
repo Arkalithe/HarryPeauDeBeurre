@@ -1,5 +1,6 @@
 package fr.humanbooster.harrypotter.service;
 
+import fr.humanbooster.harrypotter.exception.CustomEntityNotFoundException;
 import fr.humanbooster.harrypotter.repository.HouseHistoryRepository;
 import fr.humanbooster.harrypotter.entity.HouseHistory;
 import fr.humanbooster.harrypotter.dto.HouseHistoryDto;
@@ -36,7 +37,7 @@ public class HouseHistoryService implements ServiceListInterface<HouseHistory, I
 
     @Override
     public HouseHistory findById(Integer id) {
-    return househistoryRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+    return househistoryRepository.findById(id).orElseThrow(CustomEntityNotFoundException::new);
     }
 
     @Override

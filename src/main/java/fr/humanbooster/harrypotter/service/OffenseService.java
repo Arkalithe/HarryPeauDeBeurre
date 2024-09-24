@@ -1,5 +1,6 @@
 package fr.humanbooster.harrypotter.service;
 
+import fr.humanbooster.harrypotter.exception.CustomEntityNotFoundException;
 import fr.humanbooster.harrypotter.repository.OffenseRepository;
 import fr.humanbooster.harrypotter.entity.Offense;
 import fr.humanbooster.harrypotter.dto.OffenseDto;
@@ -36,7 +37,7 @@ public class OffenseService implements ServiceListInterface<Offense, Integer, Of
 
     @Override
     public Offense findById(Integer id) {
-        return offenseRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        return offenseRepository.findById(id).orElseThrow(CustomEntityNotFoundException::new);
     }
 
     @Override

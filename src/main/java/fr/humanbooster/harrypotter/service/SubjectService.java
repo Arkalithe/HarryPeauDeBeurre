@@ -1,5 +1,6 @@
 package fr.humanbooster.harrypotter.service;
 
+import fr.humanbooster.harrypotter.exception.CustomEntityNotFoundException;
 import fr.humanbooster.harrypotter.repository.SubjectRepository;
 import fr.humanbooster.harrypotter.entity.Subject;
 import fr.humanbooster.harrypotter.dto.SubjectDto;
@@ -38,7 +39,7 @@ public class SubjectService implements ServiceListInterface<Subject, Integer, Su
     
     @Override
     public Subject findById(Integer id) {
-    return subjectRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+    return subjectRepository.findById(id).orElseThrow(CustomEntityNotFoundException::new);
     }
     
     @Override
