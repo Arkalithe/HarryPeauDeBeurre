@@ -19,17 +19,14 @@ public class HouseHistory {
 
     @Column(nullable = false)
     @NotBlank
-    @NotNull
     private String oldHouseName;
 
     @Column(nullable = false)
     @NotBlank
-    @NotNull
     private String oldFounderFirstName;
 
     @Column(nullable = false)
     @NotBlank
-    @NotNull
     private String oldFounderLastName;
 
 

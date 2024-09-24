@@ -7,13 +7,16 @@ import fr.humanbooster.harrypotter.entity.House;
 import fr.humanbooster.harrypotter.entity.Subject;
 import fr.humanbooster.harrypotter.jsonviews.HouseJsonview;
 import fr.humanbooster.harrypotter.service.SubjectService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static fr.humanbooster.harrypotter.util.UrlPath.*;
+
 @RestController
-@RequestMapping("/api/subjects")
+@RequestMapping(SUBJECT_URL)
 @AllArgsConstructor
 public class SubjectController {
     private final SubjectService subjectService;
@@ -28,17 +31,17 @@ public class SubjectController {
         return subjectService.findById(id);
     }
 
-    @PostMapping
-    public Subject createSubject(@RequestBody SubjectDto subjectDto) {
+    @PostMapping(CREATE)
+    public Subject createSubject(@Valid  @RequestBody SubjectDto subjectDto) {
         return subjectService.create(subjectDto);
     }
 
-    @PutMapping("/{id}")
-    public Subject updateSubject(@PathVariable Integer id, @RequestBody SubjectDto subjectDto) {
+    @PutMapping(UPDATE + "/{id}")
+    public Subject updateSubject(@PathVariable Integer id,@Valid @RequestBody SubjectDto subjectDto) {
         return subjectService.update(subjectDto, id);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping(DELETE + "/{id}")
     public void deleteSubject(@PathVariable Integer id) {
         subjectService.delete(id);
     }

@@ -1,5 +1,8 @@
 package fr.humanbooster.harrypotter.entity;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import fr.humanbooster.harrypotter.jsonviews.TeacherJsonview;
+import fr.humanbooster.harrypotter.jsonviews.TypeClassJsonview;
 import fr.humanbooster.harrypotter.slugger.SluggerInterface;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -23,7 +26,7 @@ public class Subject implements SluggerInterface {
 
     @Column(nullable = false)
     @NotBlank
-    @NotNull
+    @JsonView({TypeClassJsonview.showTypeClassSimple.class, TeacherJsonview.showTeacherSimple.class})
     private String subjectName;
 
     private String slug;

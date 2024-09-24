@@ -5,14 +5,17 @@ import fr.humanbooster.harrypotter.dto.HouseDto;
 import fr.humanbooster.harrypotter.entity.House;
 import fr.humanbooster.harrypotter.jsonviews.HouseJsonview;
 import fr.humanbooster.harrypotter.service.HouseService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static fr.humanbooster.harrypotter.util.UrlPath.*;
+
 
 @RestController
-@RequestMapping("/api/houses")
+@RequestMapping(HOUSE_URL)
 @AllArgsConstructor
 public class HouseController {
 
@@ -30,18 +33,18 @@ public class HouseController {
         return houseService.findById(id);
     }
 
-    @PostMapping
-    public House createHouse(@RequestBody HouseDto houseDto) {
+    @PostMapping(CREATE)
+    public House createHouse(@Valid @RequestBody HouseDto houseDto) {
         return houseService.create(houseDto);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping(UPDATE + "/{id}")
     @JsonView(HouseJsonview.showHouseSimple.class)
-    public House updateHouse(@PathVariable Integer id, @RequestBody HouseDto houseDto) {
+    public House updateHouse(@PathVariable Integer id, @Valid @RequestBody HouseDto houseDto) {
         return houseService.update(houseDto, id);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping(DELETE + "/{id}")
     @JsonView(HouseJsonview.showHouseSimple.class)
     public void deleteHouse(@PathVariable Integer id) {
         houseService.delete(id);

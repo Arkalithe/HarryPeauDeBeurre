@@ -5,13 +5,16 @@ import fr.humanbooster.harrypotter.dto.SubjectDto;
 import fr.humanbooster.harrypotter.entity.HouseHistory;
 import fr.humanbooster.harrypotter.entity.Subject;
 import fr.humanbooster.harrypotter.service.HouseHistoryService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static fr.humanbooster.harrypotter.util.UrlPath.*;
+
 @RestController
-@RequestMapping("/api/househistorys")
+@RequestMapping(HOUSE_HISTORY_URL)
 @AllArgsConstructor
 public class HouseHistoryController {
     private final HouseHistoryService househistoryService;
@@ -26,17 +29,17 @@ public class HouseHistoryController {
         return househistoryService.findById(id);
     }
 
-    @PostMapping
-    public HouseHistory createHouseHistory(@RequestBody HouseHistoryDto houseHistoryDto) {
+    @PostMapping(CREATE)
+    public HouseHistory createHouseHistory(@Valid  @RequestBody HouseHistoryDto houseHistoryDto) {
         return househistoryService.create(houseHistoryDto);
     }
 
-    @PutMapping("/{id}")
-    public HouseHistory updateHouseHistory(@PathVariable Integer id, @RequestBody HouseHistoryDto houseHistoryDto) {
+    @PutMapping(UPDATE + "/{id}")
+    public HouseHistory updateHouseHistory(@PathVariable Integer id, @Valid @RequestBody HouseHistoryDto houseHistoryDto) {
         return househistoryService.update(houseHistoryDto, id);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping(DELETE + "/{id}")
     public void deleteHouseHistory(@PathVariable Integer id) {
         househistoryService.delete(id);
     }

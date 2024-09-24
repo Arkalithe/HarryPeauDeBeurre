@@ -1,5 +1,8 @@
 package fr.humanbooster.harrypotter.entity;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import fr.humanbooster.harrypotter.jsonviews.TeacherJsonview;
+import fr.humanbooster.harrypotter.jsonviews.TypeClassJsonview;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -22,6 +25,7 @@ public class TypeOfClass {
 
     @Column(nullable = false)
     @NotNull
+    @JsonView({TypeClassJsonview.showTypeClassSimple.class, TeacherJsonview.showTeacherSimple.class})
     private Integer yearTaught;
 
     @ManyToMany
@@ -30,14 +34,18 @@ public class TypeOfClass {
             joinColumns = @JoinColumn(name = "type_of_class_id"),
             inverseJoinColumns = @JoinColumn(name = "student_id")
     )
+    @JsonView(TypeClassJsonview.showTypeClassSimple.class)
     private List<Student> student = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "teacher_id", nullable = false)
+    @JsonView(TypeClassJsonview.showTypeClassSimple.class)
     private Teacher teacher;
+
 
     @ManyToOne
     @JoinColumn(name = "subject_id", nullable = false)
+    @JsonView({TypeClassJsonview.showTypeClassSimple.class, TeacherJsonview.showTeacherSimple.class})
     private Subject subject;
 
 }

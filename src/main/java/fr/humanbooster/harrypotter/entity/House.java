@@ -1,8 +1,7 @@
 package fr.humanbooster.harrypotter.entity;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import fr.humanbooster.harrypotter.jsonviews.HouseJsonview;
-import fr.humanbooster.harrypotter.jsonviews.StudentJsonview;
+import fr.humanbooster.harrypotter.jsonviews.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -24,22 +23,19 @@ public class House {
     @JsonView(HouseJsonview.showHouseSimple.class)
         private Integer id;
 
-    @JsonView({HouseJsonview.showHouseSimple.class, StudentJsonview.showStudentSimple.class})
     @Column(nullable = false)
     @NotBlank
-    @NotNull
+    @JsonView({HouseJsonview.showHouseSimple.class, StudentJsonview.showStudentSimple.class, TypeClassJsonview.showTypeClassDetailed.class, OffenseListJsonview.showOffenseListDetailed.class, HousePointJsonview.showHousePointSimple.class})
     private String houseName;
 
     @JsonView(HouseJsonview.showHouseSimple.class)
     @Column(nullable = false)
     @NotBlank
-    @NotNull
     private String founderFirstName;
 
     @JsonView(HouseJsonview.showHouseSimple.class)
     @Column(nullable = false)
     @NotBlank
-    @NotNull
     private String founderLastName;
 
     @OneToMany(mappedBy = "house")

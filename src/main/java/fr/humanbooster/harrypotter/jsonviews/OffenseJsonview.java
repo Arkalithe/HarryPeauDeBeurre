@@ -2,10 +2,10 @@ package fr.humanbooster.harrypotter.jsonviews;
 
 public class OffenseJsonview {
 
-    public interface showoffenseSimple {
+    public interface showOffenseSimple {
     }
 
-    public interface showoffenseDetailed extends showoffenseSimple {
+    public interface showOffenseDetailed extends showOffenseSimple {
     }
 
 }

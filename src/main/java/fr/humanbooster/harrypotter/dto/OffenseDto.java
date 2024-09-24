@@ -7,7 +7,7 @@ import fr.humanbooster.harrypotter.jsonviews.OffenseJsonview;
 
 @Data
 @NoArgsConstructor
-@JsonView(OffenseJsonview.showoffenseSimple.class)
+@JsonView(OffenseJsonview.showOffenseSimple.class)
 public class OffenseDto {
     private String label;
 }

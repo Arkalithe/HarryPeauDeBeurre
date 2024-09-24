@@ -1,5 +1,8 @@
 package fr.humanbooster.harrypotter.entity;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import fr.humanbooster.harrypotter.jsonviews.OffenseJsonview;
+import fr.humanbooster.harrypotter.jsonviews.OffenseListJsonview;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -22,7 +25,7 @@ public class Offense {
 
     @Column(nullable = false)
     @NotBlank
-    @NotNull
+    @JsonView({OffenseJsonview.showOffenseSimple.class, OffenseListJsonview.showOffenseListSimple.class})
     private String label;
 
 }

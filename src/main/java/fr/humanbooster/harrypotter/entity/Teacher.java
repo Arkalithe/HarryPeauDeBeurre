@@ -1,5 +1,8 @@
 package fr.humanbooster.harrypotter.entity;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import fr.humanbooster.harrypotter.jsonviews.TeacherJsonview;
+import fr.humanbooster.harrypotter.jsonviews.TypeClassJsonview;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -22,10 +25,11 @@ public class Teacher {
 
     @Column(nullable = false)
     @NotBlank
-    @NotNull
+    @JsonView({TypeClassJsonview.showTypeClassSimple.class, TeacherJsonview.showTeacherSimple.class})
     private String name;
 
     @OneToMany(mappedBy = "teacher")
+    @JsonView(TeacherJsonview.showTeacherSimple.class)
     private List<TypeOfClass> typeOfClasses = new ArrayList<>();
 
 }

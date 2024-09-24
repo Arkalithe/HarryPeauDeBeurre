@@ -6,43 +6,47 @@ import fr.humanbooster.harrypotter.dto.OffenseDto;
 import fr.humanbooster.harrypotter.entity.HousePoint;
 import fr.humanbooster.harrypotter.entity.Offense;
 import fr.humanbooster.harrypotter.jsonviews.HouseJsonview;
+import fr.humanbooster.harrypotter.jsonviews.OffenseJsonview;
 import fr.humanbooster.harrypotter.service.OffenseService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static fr.humanbooster.harrypotter.util.UrlPath.*;
+
 @RestController
-@RequestMapping("/api/offenses")
+@RequestMapping(OFFENSE_URL)
 @AllArgsConstructor
 public class OffenseController {
 
     private final OffenseService offenseService;
 
     @GetMapping
-    @JsonView(HouseJsonview.showHouseSimple.class)
+    @JsonView(OffenseJsonview.showOffenseSimple.class)
     public List<Offense> getAllOffense() {
         return offenseService.list();
     }
 
     @GetMapping("/{id}")
-    @JsonView(HouseJsonview.showHouseSimple.class)
+    @JsonView(OffenseJsonview.showOffenseDetailed.class)
     public Offense getOffenseById(@PathVariable Integer id) {
         return offenseService.findById(id);
     }
 
-    @PostMapping
-    public Offense createOffense(@RequestBody OffenseDto offenseDto) {
+    @PostMapping(CREATE)
+    public Offense createOffense(@Valid  @RequestBody OffenseDto offenseDto) {
         return offenseService.create(offenseDto);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping(UPDATE + "/{id}")
     @JsonView(HouseJsonview.showHouseSimple.class)
-    public Offense updateOffense(@PathVariable Integer id, @RequestBody OffenseDto offenseDto) {
+    public Offense updateOffense(@PathVariable Integer id,@Valid @RequestBody OffenseDto offenseDto) {
         return offenseService.update(offenseDto, id);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping(DELETE + "/{id}")
     @JsonView(HouseJsonview.showHouseSimple.class)
     public void deleteOffense(@PathVariable Integer id) {
         offenseService.delete(id);

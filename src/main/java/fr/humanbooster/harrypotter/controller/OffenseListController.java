@@ -6,14 +6,19 @@ import fr.humanbooster.harrypotter.dto.OffenseListDto;
 import fr.humanbooster.harrypotter.entity.Offense;
 import fr.humanbooster.harrypotter.entity.OffenseList;
 import fr.humanbooster.harrypotter.jsonviews.HouseJsonview;
+import fr.humanbooster.harrypotter.jsonviews.OffenseJsonview;
+import fr.humanbooster.harrypotter.jsonviews.OffenseListJsonview;
 import fr.humanbooster.harrypotter.service.OffenseListService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static fr.humanbooster.harrypotter.util.UrlPath.*;
+
 @RestController
-@RequestMapping("/api/offenselists")
+@RequestMapping(OFFENSE_LIST_URL)
 @AllArgsConstructor
 public class OffenseListController {
 
@@ -21,29 +26,29 @@ public class OffenseListController {
 
 
     @GetMapping
-    @JsonView(HouseJsonview.showHouseSimple.class)
+    @JsonView(OffenseListJsonview.showOffenseListSimple.class)
     public List<OffenseList> getAllOffenseList() {
         return offenselistService.list();
     }
 
     @GetMapping("/{id}")
-    @JsonView(HouseJsonview.showHouseSimple.class)
+    @JsonView(OffenseListJsonview.showOffenseListDetailed.class)
     public OffenseList getOffenseListById(@PathVariable Integer id) {
         return offenselistService.findById(id);
     }
 
-    @PostMapping
-    public OffenseList createOffenseList(@RequestBody OffenseListDto offenseListDto) {
+    @PostMapping(CREATE)
+    public OffenseList createOffenseList(@Valid  @RequestBody OffenseListDto offenseListDto) {
         return offenselistService.create(offenseListDto);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping(UPDATE + "/{id}")
     @JsonView(HouseJsonview.showHouseSimple.class)
-    public OffenseList updateOffenseList(@PathVariable Integer id, @RequestBody OffenseListDto offenseListDto) {
+    public OffenseList updateOffenseList(@PathVariable Integer id,@Valid @RequestBody OffenseListDto offenseListDto) {
         return offenselistService.update(offenseListDto, id);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping(DELETE + "/{id}")
     @JsonView(HouseJsonview.showHouseSimple.class)
     public void deleteOffenseList(@PathVariable Integer id) {
         offenselistService.delete(id);

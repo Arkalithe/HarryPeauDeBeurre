@@ -6,43 +6,46 @@ import fr.humanbooster.harrypotter.dto.HousePointDto;
 import fr.humanbooster.harrypotter.entity.House;
 import fr.humanbooster.harrypotter.entity.HousePoint;
 import fr.humanbooster.harrypotter.jsonviews.HouseJsonview;
+import fr.humanbooster.harrypotter.jsonviews.HousePointJsonview;
 import fr.humanbooster.harrypotter.service.HousePointService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static fr.humanbooster.harrypotter.util.UrlPath.*;
+
 @RestController
-@RequestMapping("/api/housepoints")
+@RequestMapping(HOUSE_POINT_URL)
 @AllArgsConstructor
 public class HousePointController {
 
     private final HousePointService housepointService;
 
     @GetMapping
-    @JsonView(HouseJsonview.showHouseSimple.class)
+    @JsonView(HousePointJsonview.showHousePointSimple.class)
     public List<HousePoint> getAllHousePoint() {
         return housepointService.list();
     }
 
     @GetMapping("/{id}")
-    @JsonView(HouseJsonview.showHouseSimple.class)
+    @JsonView(HousePointJsonview.showHousePointDetailed.class)
     public HousePoint getHousePointById(@PathVariable Integer id) {
         return housepointService.findById(id);
     }
 
-    @PostMapping
-    public HousePoint createHousePoint(@RequestBody HousePointDto housePointDto) {
+    @PostMapping(CREATE)
+    public HousePoint createHousePoint(@Valid @RequestBody HousePointDto housePointDto) {
         return housepointService.create(housePointDto);
     }
 
-    @PutMapping("/{id}")
-    @JsonView(HouseJsonview.showHouseSimple.class)
-    public HousePoint updateHousePoint(@PathVariable Integer id, @RequestBody HousePointDto housePointDto) {
+    @PutMapping(UPDATE + "/{id}")
+    public HousePoint updateHousePoint(@PathVariable Integer id, @Valid @RequestBody HousePointDto housePointDto) {
         return housepointService.update(housePointDto, id);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping(DELETE + "/{id}")
     @JsonView(HouseJsonview.showHouseSimple.class)
     public void deleteHousePoint(@PathVariable Integer id) {
         housepointService.delete(id);
